@@ -1,7 +1,7 @@
 # Dashboard de Variação de Faturamento Mensal
 
 ## Descrição do Projeto
-<p align="left">O projeto consiste em um painel de calcula a variação mensal de faturamento de uma empresa de Telemedicina (dados fictícios). O painel consiste em uma seção de dados gerais do faturamento mensal e dois gráficos: variação por categoria e variação por produtos. Na parte de filtros, é possível filtrar o ano e mês de análise e o painel calculará a variação do mês selecionado imediatamente com o mês anterior.</p>
+<p align="left">O projeto consiste em um painel de calcula a variação mensal de faturamento de uma empresa de Telemedicina (dados fictícios). O painel consiste em uma seção de dados gerais do faturamento mensal e dois gráficos: **variação por categoria e variação por produtos**. Na parte de filtros, é possível filtrar o ano e mês de análise e o painel calculará a variação do mês selecionado imediatamente com o mês anterior.</p>
 
 <h2>Tabela de Conteúdos</h2>
 <ul>
