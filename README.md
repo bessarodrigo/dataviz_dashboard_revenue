@@ -16,7 +16,7 @@
 ## Status do Projeto
 <h4 align="left"> 🚧 Em construção... 🚧 </h4> <p>O projeto ainda está em desenvolvimento. Algumas funcionalidades estão implementadas, enquanto outras estão em progresso ou planejadas para futuras versões.</p>
 
-## Descrição dos Scripts
+<h2 id="descricao-dos-scripts">Descrição dos Scripts</h2>
 <ul>
   <li>
     <strong>eda_matplotlib_pandas.ipynb</strong> - Análise Exploratória dos Dados (EDA) utilizando as bibliotecas <code>matplotlib</code> e <code>pandas</code>. A ideia geral deste notebook foi pensar em um formato interessante para os gráficos do dashboard.
