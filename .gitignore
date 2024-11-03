@@ -84,6 +84,6 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# Ignorar arquivo Excel especÃ­fico
+# Ignorar arquivo Excel
 dados/*.xlsx
 
