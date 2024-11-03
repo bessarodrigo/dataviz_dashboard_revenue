@@ -3,16 +3,14 @@
 ## Descrição do Projeto
 <p align="left">O projeto consiste em um painel de calcula a variação mensal de faturamento de uma empresa de Telemedicina (dados fictícios). O painel consiste em uma seção de dados gerais do faturamento mensal e dois gráficos: variação por categoria e variação por produtos. Na parte de filtros, é possível filtrar o ano e mês de análise e o painel calculará a variação do mês selecionado imediatamente com o mês anterior.</p>
 
-Tabela de conteúdos
-=================
-<p align="center">
- <a href="#Status do Projeto">Status do Projeto</a> •
- <a href="#Features">Features</a> • 
- <a href="#tecnologias">Tecnologias</a> • 
- <a href="#contribuicao">Contribuição</a> • 
- <a href="#licenc-a">Licença</a> • 
- <a href="#autor">Autor</a>
-</p>
+<h2>Tabela de Conteúdos</h2>
+<ul>
+  <li><a href="#status-do-projeto">Status do Projeto</a></li>
+  <li><a href="#features">Features</a></li>
+  <li><a href="#deploy">Deploy</a></li>
+  <li><a href="#tecnologias-utilizadas">Tecnologias Utilizadas</a></li>
+  <li><a href="#autor">Autor</a></li>
+</ul>
 
 ## Status do Projeto
 <h4 align="left"> 🚧 Em construção... 🚧 </h4> <p>O projeto ainda está em desenvolvimento. Algumas funcionalidades estão implementadas, enquanto outras estão em progresso ou planejadas para futuras versões.</p>
