@@ -6,6 +6,7 @@
 <h2>Tabela de Conteúdos</h2>
 <ul>
   <li><a href="#status-do-projeto">Status do Projeto</a></li>
+   <li><a href="#descricao-dos-scripts">Descrição dos Scripts</a></li>
   <li><a href="#features">Features</a></li>
   <li><a href="#deploy">Deploy</a></li>
   <li><a href="#tecnologias-utilizadas">Tecnologias Utilizadas</a></li>
@@ -14,6 +15,19 @@
 
 ## Status do Projeto
 <h4 align="left"> 🚧 Em construção... 🚧 </h4> <p>O projeto ainda está em desenvolvimento. Algumas funcionalidades estão implementadas, enquanto outras estão em progresso ou planejadas para futuras versões.</p>
+
+## Descrição dos Scripts
+<ul>
+  <li>
+    <strong>eda_matplotlib_pandas.ipynb</strong> - Análise Exploratória dos Dados (EDA) utilizando as bibliotecas <code>matplotlib</code> e <code>pandas</code>. A ideia geral deste notebook foi pensar em um formato interessante para os gráficos do dashboard.
+  </li>
+  <li>
+    <strong>telemedicina_bd_conexao.ipynb</strong> - Notebook dedicado à conexão e manipulação do banco de dados.
+  </li>
+  <li>
+    <strong>str.py</strong> - Script em Python para construir o dashboard com o <code>streamlit</code>.
+  </li>
+</ul>
 
 ## Features
 <ul> <li>✅ Painel de Faturamento Mensal com visualização de dados gerais</li> <li>✅ Gráfico de Variação de Faturamento por Categoria</li> <li>✅ Gráfico de Variação de Faturamento por Produto</li> <li>❌ Filtros avançados para comparação de múltiplos períodos</li> <li>❌ Exportação de relatórios em PDF ou Excel</li> </ul>
