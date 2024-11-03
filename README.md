@@ -6,7 +6,7 @@
 <h2>Tabela de Conteúdos</h2>
 <ul>
   <li><a href="#status-do-projeto">Status do Projeto</a></li>
-   <li><a href="#descricao-dos-scripts">Descrição dos Scripts</a></li>
+  <li><a href="#descricao-dos-scripts">Descrição dos Scripts</a></li>
   <li><a href="#features">Features</a></li>
   <li><a href="#deploy">Deploy</a></li>
   <li><a href="#tecnologias-utilizadas">Tecnologias Utilizadas</a></li>
