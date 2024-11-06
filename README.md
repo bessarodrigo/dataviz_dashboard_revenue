@@ -30,7 +30,7 @@
 </ul>
 
 ## Features
-<ul> <li>✅ Painel de Faturamento Mensal com visualização de dados gerais</li> <li>✅ Gráfico de Variação de Faturamento por Categoria</li> <li>✅ Gráfico de Variação de Faturamento por Produto</li> <li>❌ Filtros avançados para comparação de múltiplos períodos</li> <li>❌ Exportação de relatórios em PDF ou Excel</li> </ul>
+<ul> <li>✅ Painel de Faturamento Mensal com visualização de dados gerais</li> <li>✅ Gráfico de Variação de Faturamento por Categoria</li> <li>✅ Gráfico de Variação de Faturamento por Produto</li> <li>✅ Filtros avançados para comparação de múltiplos períodos</li> <li>✅ Exportação de relatórios em PDF</li> </ul>
 
 ## Deploy
 
