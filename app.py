@@ -16,7 +16,7 @@ import calendar
 # Carregar variáveis do arquivo .env
 load_dotenv()
 
-# Obter as credenciais do banco de dados do .env
+# Credenciais do banco de dados do .env
 db_host = os.getenv("DB_HOST")
 db_port = os.getenv("DB_PORT")
 db_name = os.getenv("DB_NAME")
@@ -50,7 +50,7 @@ def get_data():
 # Configurando o título da página e outros elementos
 st.set_page_config(
     page_title="Dashboard de Variação Percentual de Recebimento",
-    layout="wide",  # para aumentar a área útil dos gráficos - antes era "centered"
+    layout="centered",  # para aumentar a área útil dos gráficos - antes era "centered"
     initial_sidebar_state="expanded"  # Sidebar expandida inicialmente com opção de fechamento
 )
 
