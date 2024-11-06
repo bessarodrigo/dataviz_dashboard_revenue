@@ -25,7 +25,7 @@
     <strong>telemedicina_bd_conexao.ipynb</strong> - Notebook dedicado à conexão e manipulação do banco de dados.
   </li>
   <li>
-    <strong>str.py</strong> - Script para construir o dashboard com o <code>streamlit</code>.
+    <strong>app.py</strong> - Script para construir o dashboard com o <code>streamlit</code>.
   </li>
 </ul>
 
