@@ -4,8 +4,8 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from cycler import cycler
 import locale
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 
 # Carregar variáveis do arquivo .env
 load_dotenv()
@@ -21,7 +21,7 @@ db_password = os.getenv("DB_PASSWORD")
 @st.cache_data
 def get_data():
     # Configura a string de conexão ao banco 'telemedicina'
-    postgres_str = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
+    postgres_str = f'postgresql+pg8000://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
     engine = create_engine(postgres_str)
 
     # Consultar a tabela "recebimentos"
