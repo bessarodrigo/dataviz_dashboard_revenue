@@ -5,6 +5,7 @@
 
 <h2>Tabela de Conteúdos</h2>
 <ul>
+  <li><a href="#explicacao-das-pastas">Explicação das Pastas</a></li>
   <li><a href="#status-do-projeto">Status do Projeto</a></li>
   <li><a href="#descricao-dos-scripts">Descrição dos Scripts</a></li>
   <li><a href="#features">Features</a></li>
@@ -12,6 +13,16 @@
   <li><a href="#tecnologias-utilizadas">Tecnologias Utilizadas</a></li>
   <li><a href="#autor">Autor</a></li>
 </ul>
+
+## Explicação das Pastas
+
+- **`.devcontainer/`**: Arquivo de configuração para o ambiente de desenvolvimento no Docker
+- **`.streamlit/`**: Contém o arquivo `config.toml` para definir o tema e as configurações do painel no Streamlit
+- **`images/`**: Contém imagens que ilustram o projeto ou que são usadas no dashboard.
+- **`notebooks/`**: Notebooks Jupyter para análise exploratória e scripts de conexão e manipulação do banco de dados
+- **`src/`**: Código principal do projeto
+- **`.gitignore`**: Define arquivos e pastas a serem ignorados pelo Git, como o `.env` (contendo variáveis sensíveis) e arquivos temporários
+- **`requirements.txt`**: Especifica as bibliotecas Python necessárias para rodar o projeto
 
 ## Status do Projeto
 <h4 align="left"> 🚧 Em construção... 🚧 </h4> <p>O projeto ainda está em desenvolvimento. Algumas funcionalidades estão implementadas, enquanto outras estão em progresso ou planejadas para futuras versões.</p>
