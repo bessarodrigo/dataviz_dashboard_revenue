@@ -59,7 +59,7 @@ dados = get_data()
 dados['DATA'] = pd.to_datetime(dados['DATA'], errors='coerce')  # Convertendo a coluna 'DATA' para o tipo datetime
 
 # Simplificação no layout - Logo em fundo claro e menor
-st.image("images/CV_FamiliaSaude1.png", width=100)
+st.image("../images/CV_FamiliaSaude1.png", width=100)
 
 # Configuração simplificada da sidebar - escondendo seção de cabeçalho e filtrando ano/mês com opções diretas
 st.sidebar.title("Filtros")
