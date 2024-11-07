@@ -20,10 +20,7 @@
 - **`.streamlit/`**: Contém o arquivo `config.toml` para definir o tema e as configurações do painel no Streamlit
 - **`images/`**: Contém imagens que ilustram o projeto ou que são usadas no dashboard.
 - **`notebooks/`**: Notebooks Jupyter para análise exploratória e scripts de conexão e manipulação do banco de dados
- - `eda_matplotlib_pandas.ipynb`: Notebook para análise exploratória usando `matplotlib` e `pandas`
- - `telemedicina_bd_conexao.ipynb`: Notebook com scripts de conexão ao banco de dados e manipulação de dados
 - **`src/`**: Código principal do projeto
- - `app.py`: Script principal que gera o dashboard interativo no Streamlit
 - **`.gitignore`**: Define arquivos e pastas a serem ignorados pelo Git, como o `.env` (contendo variáveis sensíveis) e arquivos temporários
 - **`requirements.txt`**: Especifica as bibliotecas Python necessárias para rodar o projeto
 
