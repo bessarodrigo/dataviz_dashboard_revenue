@@ -55,6 +55,13 @@
 
 <p>Desenvolvido por <b>Rodrigo Bessa</b>. Entre em contato:</p> <ul> <li><a href="https://linkedin.com/in/rodrigo-bessa">LinkedIn</a></li> <li><a href="mailto:reisrodri@gmail.com">Email</a></li> </ul>
 
-## Restrições de Uso
+## Restrições de Uso e Propriedade Intelectual
 
-Este projeto foi desenvolvido para fins de estudo e demonstração. Sua redistribuição e uso para fins comerciais são proibidos sem a autorização prévia do autor. O código e os dados deste repositório são disponibilizados "como estão", sem garantias de qualquer tipo, expressas ou implícitas, incluindo, sem limitação, garantias de comercialização ou adequação a um propósito específico.
+Este projeto e seu conteúdo estão protegidos pela Lei de Direitos Autorais (Lei nº 9.610/1998) e outras leis de propriedade intelectual aplicáveis no Brasil. Todo o código, documentação, e dados disponibilizados neste repositório são de propriedade exclusiva do autor, exceto quando especificado de outra forma.
+
+### Termos de Uso
+- Uso Comercial: é proibido o uso do conteúdo deste repositório para fins comerciais sem autorização expressa e por escrito do autor
+- Redistribuição: a redistribuição do código ou de qualquer outro material aqui presente deve conter os devidos créditos ao autor e ser acompanhada desta mesma nota de direitos autorais e termos de uso
+  
+### Licença
+O uso deste repositório está permitido exclusivamente para fins educacionais e de estudo. Para outros tipos de licença (como MIT ou GPL) ou para uso comercial, consulte o autor para autorização formal.
