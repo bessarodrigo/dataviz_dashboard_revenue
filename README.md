@@ -54,3 +54,7 @@
 ## Autor
 
 <p>Desenvolvido por <b>Rodrigo Bessa</b>. Entre em contato:</p> <ul> <li><a href="https://linkedin.com/in/rodrigo-bessa">LinkedIn</a></li> <li><a href="mailto:reisrodri@gmail.com">Email</a></li> </ul>
+
+## Restrições de Uso
+
+Este projeto foi desenvolvido para fins de estudo e demonstração. Sua redistribuição e uso para fins comerciais são proibidos sem a autorização prévia do autor. O código e os dados deste repositório são disponibilizados "como estão", sem garantias de qualquer tipo, expressas ou implícitas, incluindo, sem limitação, garantias de comercialização ou adequação a um propósito específico.
