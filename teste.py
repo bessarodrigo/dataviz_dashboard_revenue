@@ -36,97 +36,104 @@ def format_currency_br(value):
 # Defina a função de conexão e obtenção de dados
 @st.cache_data
 def get_data():
-    # Configura a string de conexão ao banco 'telemedicina'
     postgres_str = f'postgresql+pg8000://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
     engine = create_engine(postgres_str)
-
-    # Consultar a tabela "recebimentos"
-    query = "SELECT * FROM telemedicina.recebimentos" 
+    query = "SELECT * FROM telemedicina.recebimentos"
     with engine.connect() as connection:
         df = pd.read_sql(query, connection)
-    
     return df
 
-# Configurando o título da página e outros elementos
+# Configuração da página
 st.set_page_config(
     page_title="Dashboard de Variação Percentual de Recebimento",
-    layout="wide",  # para aumentar a área útil dos gráficos - antes era "centered"
-    initial_sidebar_state="expanded"  # Sidebar expandida inicialmente com opção de fechamento
+    layout="centered",
+    initial_sidebar_state="expanded"
 )
 
-# Lendo e preparando dados
+# Obter dados
 dados = get_data()
-dados['DATA'] = pd.to_datetime(dados['DATA'], errors='coerce')  # Convertendo a coluna 'DATA' para o tipo datetime
+dados['DATA'] = pd.to_datetime(dados['DATA'], errors='coerce')
+dados = dados.dropna(subset=['DATA'])
 
-# Simplificação no layout - Logo em fundo claro e menor
-st.image("CV_FamiliaSaude1.png", width=100)
+# Logo
+st.image("../images/CV_FamiliaSaude1.png", width=100)
 
-# Configuração simplificada da sidebar - escondendo seção de cabeçalho e filtrando ano/mês com opções diretas
+# Sidebar - filtros
 st.sidebar.title("Filtros")
 
-# Define os valores padrão do filtro de meses com base na data atual do sistema
+# Data atual para referência
 mes_referencia = datetime.now().month
 ano_referencia = datetime.now().year
 
-# Configuração padrão: Mês atual é mês_referencia - 1, mês anterior é mês_referencia - 2
+anos_disponiveis = sorted(dados['DATA'].dt.year.dropna().unique())
+
+ano_padrao_atual = ano_referencia if ano_referencia in anos_disponiveis else anos_disponiveis[-1]
+ano_padrao_anterior = ano_padrao_atual - 1 if (ano_padrao_atual - 1) in anos_disponiveis else anos_disponiveis[0]
+
 mes_padrao_atual = mes_referencia - 1 if mes_referencia > 1 else 12
-ano_padrao_atual = ano_referencia if mes_referencia > 1 else ano_referencia - 1
-
 mes_padrao_anterior = mes_padrao_atual - 1 if mes_padrao_atual > 1 else 12
-ano_padrao_anterior = ano_padrao_atual if mes_padrao_atual > 1 else ano_padrao_atual - 1
 
-# Filtro de categoria com "Todos" como opção
+# Filtro categoria
 lista_categorias = ["Todos"] + sorted(dados['CATEGORIA'].str.title().unique())
 filtro_categoria = st.sidebar.selectbox("Categoria:", options=lista_categorias, key="filtro_categoria")
 
-# Configuração dos seletores de ano e mês para o mês atual e anterior
+# Seletores de ano e mês
 st.sidebar.subheader("Período de Referência")
-filtro_ano_atual = st.sidebar.selectbox("Ano:", options=sorted(dados['DATA'].dt.year.unique()), 
-                                        index=sorted(dados['DATA'].dt.year.unique()).index(ano_padrao_atual), key="filtro_ano_atual")
-filtro_mes_atual = st.sidebar.selectbox("Mês:", options=list(range(1, 13)),
-                                        format_func=lambda x: calendar.month_name[x].capitalize(),
-                                        index=mes_padrao_atual - 1, key="filtro_mes_atual")
+index_ano_atual = anos_disponiveis.index(ano_padrao_atual)
+index_ano_anterior = anos_disponiveis.index(ano_padrao_anterior)
+
+filtro_ano_atual = st.sidebar.selectbox("Ano (Atual):", options=anos_disponiveis, index=index_ano_atual, key="filtro_ano_atual")
+filtro_mes_atual = st.sidebar.selectbox(
+    "Mês (Atual):",
+    options=list(range(1, 13)),
+    format_func=lambda x: calendar.month_name[x].capitalize(),
+    index=mes_padrao_atual - 1,
+    key="filtro_mes_atual"
+)
 
 st.sidebar.subheader("Período Anterior")
-filtro_ano_anterior = st.sidebar.selectbox("Ano:", options=sorted(dados['DATA'].dt.year.unique()),
-                                           index=sorted(dados['DATA'].dt.year.unique()).index(ano_padrao_anterior), key="filtro_ano_anterior")
-filtro_mes_anterior = st.sidebar.selectbox("Mês:", options=list(range(1, 13)),
-                                           format_func=lambda x: calendar.month_name[x].capitalize(),
-                                           index=mes_padrao_anterior - 1, key="filtro_mes_anterior")
+filtro_ano_anterior = st.sidebar.selectbox("Ano (Anterior):", options=anos_disponiveis, index=index_ano_anterior, key="filtro_ano_anterior")
+filtro_mes_anterior = st.sidebar.selectbox(
+    "Mês (Anterior):",
+    options=list(range(1, 13)),
+    format_func=lambda x: calendar.month_name[x].capitalize(),
+    index=mes_padrao_anterior - 1,
+    key="filtro_mes_anterior"
+)
 
-
-# Validação para garantir que o mês anterior não seja mais recente do que o mês atual
+# Validação de datas para garantir mês anterior < mês atual
 data_atual = datetime(filtro_ano_atual, filtro_mes_atual, 1)
 data_anterior = datetime(filtro_ano_anterior, filtro_mes_anterior, 1)
 
 if data_anterior >= data_atual:
-    st.error("Atenção: o mês anterior selecionado não pode ser mais recente ou igual ao mês de referência. Ajuste o filtro.")
-    # Corrige automaticamente para o mês anterior correto
-    filtro_mes_anterior = filtro_mes_atual - 1 if filtro_mes_atual > 1 else 12
-    filtro_ano_anterior = filtro_ano_atual if filtro_mes_atual > 1 else filtro_ano_atual - 1
+    st.error("Atenção: o mês anterior não pode ser maior ou igual ao mês atual. Ajuste os filtros.")
+    st.stop()
 
-# Filtra os dados pela categoria selecionada
+# Filtrar por categoria
 if filtro_categoria == "Todos":
     dados_filtrados = dados
 else:
     dados_filtrados = dados[dados['CATEGORIA'].str.title() == filtro_categoria]
 
-# Cabeçalho minimalista
-with st.container():
-    st.title("Dashboard de Variação Percentual")
-    st.caption("Análise mensal de recebimento por categoria e produto")
-    st.markdown("<hr style='border-color: lightgray;'>", unsafe_allow_html=True)
+# Cabeçalho
+st.title("Dashboard de Variação Percentual")
+st.caption("Análise mensal de recebimento por categoria e produto")
+st.markdown("<hr style='border-color: lightgray;'>", unsafe_allow_html=True)
 
-# Calcular valores totais e variação percentual
-recebimento_mes_atual = dados[(dados['DATA'].dt.year == ano_padrao_atual) & (dados['DATA'].dt.month == filtro_mes_atual)]['TOTAL_RECEBIDO'].sum()
-recebimento_mes_anterior = dados[(dados['DATA'].dt.year == filtro_ano_anterior) & (dados['DATA'].dt.month == filtro_mes_anterior)]['TOTAL_RECEBIDO'].sum()
+# Cálculo totais e variação percentual usando dados_filtrados
+recebimento_mes_atual = dados_filtrados[
+    (dados_filtrados['DATA'].dt.year == filtro_ano_atual) & (dados_filtrados['DATA'].dt.month == filtro_mes_atual)
+]['TOTAL_RECEBIDO'].sum()
+
+recebimento_mes_anterior = dados_filtrados[
+    (dados_filtrados['DATA'].dt.year == filtro_ano_anterior) & (dados_filtrados['DATA'].dt.month == filtro_mes_anterior)
+]['TOTAL_RECEBIDO'].sum()
+
 variacao_percentual = ((recebimento_mes_atual - recebimento_mes_anterior) / recebimento_mes_anterior * 100) if recebimento_mes_anterior else 0
 
-# Usando locale.format_string para formatar em português
 valor_formatado_mes_atual = locale.format_string("R$ %.2f", recebimento_mes_atual, grouping=True)
 valor_formatado_mes_anterior = locale.format_string("R$ %.2f", recebimento_mes_anterior, grouping=True)
 
-# Adicionando cartões de visão geral
 col1, col2, col3 = st.columns(3)
 with col1:
     st.metric(label=f"Recebimento em {calendar.month_name[filtro_mes_anterior]}/{filtro_ano_anterior}", value=valor_formatado_mes_anterior)
@@ -135,7 +142,7 @@ with col2:
 with col3:
     st.metric(label="Variação Percentual", value=f"{variacao_percentual:.2f}%")
 
-# Configuração de cores para os gráficos
+# Configuração das cores
 cores_graficos = plt.get_cmap('Pastel1').colors
 ciclo_cores = cycler('color', cores_graficos)
 plt.rc('axes', prop_cycle=ciclo_cores)
@@ -144,9 +151,13 @@ plt.rc('axes', prop_cycle=ciclo_cores)
 st.write('---')
 st.markdown("<h2 style='color: gray; font-size: 20px;'>Variação Percentual por Categoria</h2>", unsafe_allow_html=True)
 
-# Filtrando dados e calculando variação por categoria
-dados_mes_anterior_categoria = dados_filtrados[(dados['DATA'].dt.year == filtro_ano_anterior) & (dados['DATA'].dt.month == filtro_mes_anterior)]
-dados_mes_atual_categoria = dados_filtrados[(dados['DATA'].dt.year == filtro_ano_atual) & (dados['DATA'].dt.month == filtro_mes_atual)]
+dados_mes_anterior_categoria = dados_filtrados[
+    (dados_filtrados['DATA'].dt.year == filtro_ano_anterior) & (dados_filtrados['DATA'].dt.month == filtro_mes_anterior)
+]
+
+dados_mes_atual_categoria = dados_filtrados[
+    (dados_filtrados['DATA'].dt.year == filtro_ano_atual) & (dados_filtrados['DATA'].dt.month == filtro_mes_atual)
+]
 
 recebimento_categoria_mes_anterior = dados_mes_anterior_categoria.groupby('CATEGORIA')['TOTAL_RECEBIDO'].sum()
 recebimento_categoria_mes_atual = dados_mes_atual_categoria.groupby('CATEGORIA')['TOTAL_RECEBIDO'].sum()
@@ -173,8 +184,13 @@ st.pyplot(fig_categoria)
 st.write('---')
 st.markdown("<h2 style='color: gray; font-size: 20px;'>Variação Percentual por Produto</h2>", unsafe_allow_html=True)
 
-dados_mes_anterior_produto = dados_filtrados[(dados['DATA'].dt.year == filtro_ano_anterior) & (dados['DATA'].dt.month == filtro_mes_anterior)]
-dados_mes_atual_produto = dados_filtrados[(dados['DATA'].dt.year == filtro_ano_atual) & (dados['DATA'].dt.month == filtro_mes_atual)]
+dados_mes_anterior_produto = dados_filtrados[
+    (dados_filtrados['DATA'].dt.year == filtro_ano_anterior) & (dados_filtrados['DATA'].dt.month == filtro_mes_anterior)
+]
+
+dados_mes_atual_produto = dados_filtrados[
+    (dados_filtrados['DATA'].dt.year == filtro_ano_atual) & (dados_filtrados['DATA'].dt.month == filtro_mes_atual)
+]
 
 recebimento_produto_mes_anterior = dados_mes_anterior_produto.groupby('ITEM_PCG')['TOTAL_RECEBIDO'].sum()
 recebimento_produto_mes_atual = dados_mes_atual_produto.groupby('ITEM_PCG')['TOTAL_RECEBIDO'].sum()
@@ -197,21 +213,16 @@ ax_produto.set_xticks([])
 
 st.pyplot(fig_produto)
 
-# Exportar gráficos para PDF diretamente ao clicar no botão
+# Função para gerar PDF (simplificado)
 def gerar_pdf():
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=A4)
-    
-    # Adicionar textos e gráficos no PDF
     c.drawString(100, 800, f"Recebimento mês atual ({filtro_mes_atual}/{filtro_ano_atual}): {valor_formatado_mes_atual}")
     c.drawString(100, 780, f"Recebimento mês anterior ({filtro_mes_anterior}/{filtro_ano_anterior}): {valor_formatado_mes_anterior}")
     c.drawString(100, 760, f"Variação percentual: {variacao_percentual:.2f}%")
-    
-    # Salvar PDF no buffer
     c.save()
     buffer.seek(0)
     return buffer
 
-# Botão único para gerar e baixar o PDF
 buffer = gerar_pdf()
 st.download_button(label="Exportar para PDF", data=buffer, file_name="dashboard_variacao.pdf", mime="application/pdf")
